@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Turkish Super League Soccer Teams</h1>
+<tr>
+    <td>Team Name</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <td>City</td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <td>Pts</td>
+</tr>
+<span id="stuff"></span>
+
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var myObj = JSON.parse(this.responseText);
+            var content = "<table>";
+
+            for (var property in myObj) {
+                if (myObj.hasOwnProperty(property)) {
+                    content +=
+                        "<tr><td>" + myObj[property].teamName+"</td>" +
+                        "<td>" + myObj[property].city + "</td>"+
+                        "<td>" + myObj[property].points + "</td></tr>";
+                }
+            }
+            content += "</table>"
+            document.getElementById("stuff").innerHTML = content;
+            alert(this.responseText);
+        }
+    };
+    xmlhttp.open("GET", "/teams", true);
+    xmlhttp.send();
+</script>
+</body>
+</html>
